@@ -18,12 +18,13 @@ args = parser.parse_args()
 with open(args.input_file) as data_file:
   data = json.load(data_file)
 
-data["challengerEmail"] = args.challenger_email
-data["pipelineName"] = args.pipeline_name
-data["challengeTeam"] = args.challenger_team_name
+data["transactionalIdentifiers"]["accountName"] = args.challenger_email
+data["processingMetadata"]["pipelineName"] = args.pipeline_name
+data["processingMetadata"]["challengeTeam"] = args.challenger_team_name
+data["processingMetadata"]["processingPlatformInfos"] = "VIP"
 
 f = open(args.output_file,'w')
-f.write(json.dumps(data))
+f.write(json.dumps(data, sort_keys=True, indent=4))
 f.close()
 
 
